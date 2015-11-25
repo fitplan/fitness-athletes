@@ -7,7 +7,8 @@ supported_omniauth_providers = {
     :github_app_id,
     :github_app_secret,
     { scope: 'user,user:email' }
-  ]
+  ],
+  instagram: [:instagram_app_id, :instagram_app_secret]
 }
 
 CONFIGURED_OMNIAUTH_PROVIDERS = supported_omniauth_providers.each_with_object([]) do |i, m|
