@@ -4,9 +4,13 @@ class UsersController < ApplicationController
   # GET/PATCH /users/:id/finish_signup
   def finish_signup
     return unless request.patch? && params[:user]
-    return @show_errors = true unless @user.update(user_params)
-    sign_in @user, bypass: true
-    redirect_to root_path, notice: 'Your profile was successfully updated.'
+    if email_exists?
+      flash[:notice] = "This email already exists. Please type a new email."
+    else
+      return @show_errors = true unless @user.update(user_params)
+      sign_in @user, bypass: true
+      redirect_to root_path, notice: 'Your profile was successfully updated.'
+    end
   end
 
   # GET /users/1/edit
@@ -28,6 +32,10 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def email_exists?
+    User.find_by(email: user_params["email"]).present?
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_user
