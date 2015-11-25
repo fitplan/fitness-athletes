@@ -38,6 +38,7 @@ class User < ActiveRecord::Base
   end
 
   def self.email_or_temp_from_auth(email)
+    binding.pry
     email ? email : "#{TEMP_EMAIL_PREFIX}-#{auth.uid}-#{auth.provider}.com"
   end
 
