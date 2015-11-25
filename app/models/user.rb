@@ -27,14 +27,16 @@ class User < ActiveRecord::Base
   delegate :handle, to: :first_authorization, allow_nil: true
 
   def self.create_from_auth!(auth)
-    create! name: auth.extra.raw_info.name,
+    auth.provider == 'instagram' ? name = auth.info.name : name = auth.extra.raw_info.name
+
+    create! name: name,
             avatar: image_from_auth(auth),
             email: email_or_temp_from_auth(auth),
             meta: auth.extra.raw_info.to_h
   end
 
   def self.image_from_auth(auth)
-    auth.extra.raw_info.profile_image_url_https || auth.info.image
+    auth.info.image || auth.extra.raw_info.profile_image_url_https
   end
 
   def self.email_or_temp_from_auth(auth)
