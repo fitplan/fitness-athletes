@@ -11,7 +11,8 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
-gem 'puma'
+gem 'puma', '~> 2.15.3'
+gem 'pry'
 
 gem 'omniauth-twitter'
 gem 'omniauth-github'
