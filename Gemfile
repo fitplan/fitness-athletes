@@ -17,6 +17,7 @@ gem 'pry'
 gem 'omniauth-twitter'
 gem 'omniauth-github'
 gem 'omniauth-facebook'
+gem 'omniauth-instagram'
 
 gem 'typekit-rails'
 gem 'acts_as_votable'
