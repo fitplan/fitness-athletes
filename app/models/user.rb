@@ -3,9 +3,9 @@ class User < ActiveRecord::Base
 
   devise :trackable, :omniauthable, omniauth_providers: CONFIGURED_OMNIAUTH_PROVIDERS
 
-  has_many :authorizations
-  has_many :clicks, class_name: 'PostClick'
-  has_many :posts, class_name: 'Post::Base'
+  has_many :authorizations, dependent: :destroy
+  has_many :clicks, class_name: 'PostClick', dependent: :destroy
+  has_many :posts, class_name: 'Post::Base', dependent: :destroy
 
   TEMP_EMAIL_PREFIX = 'change@me'
   TEMP_EMAIL_REGEX  = /\A#{TEMP_EMAIL_PREFIX}/
@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
   def self.create_from_auth!(auth)
     create! name: auth.extra.raw_info.name,
             avatar: image_from_auth(auth),
-            email: email_or_temp_from_auth(auth.info.email),
+            email: email_or_temp_from_auth(auth),
             meta: auth.extra.raw_info.to_h
   end
 
@@ -37,8 +37,8 @@ class User < ActiveRecord::Base
     auth.extra.raw_info.profile_image_url_https || auth.info.image
   end
 
-  def self.email_or_temp_from_auth(email)
-    binding.pry
+  def self.email_or_temp_from_auth(auth)
+    email = auth.info.email
     email ? email : "#{TEMP_EMAIL_PREFIX}-#{auth.uid}-#{auth.provider}.com"
   end
 
