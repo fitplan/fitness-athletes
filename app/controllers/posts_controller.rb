@@ -60,6 +60,14 @@ class PostsController < ApplicationController
     end
   end
 
+  def top
+    @posts = Post::Base.order("cached_votes_score DESC")
+
+    if params[:tag].present?
+      @posts = @posts.tagged_with(params[:tag])
+    end
+  end
+
   private
 
   def set_date
