@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151124233549) do
+ActiveRecord::Schema.define(version: 20151125220944) do
 
   create_table "authorizations", force: :cascade do |t|
     t.integer  "user_id",    null: false
@@ -54,17 +54,25 @@ ActiveRecord::Schema.define(version: 20151124233549) do
   add_index "post_clicks", ["user_id"], name: "index_post_clicks_on_user_id"
 
   create_table "posts", force: :cascade do |t|
-    t.string   "title",                               null: false
-    t.integer  "user_id",                             null: false
-    t.string   "type",         default: "Post::Base", null: false
+    t.string   "title",                                     null: false
+    t.integer  "user_id",                                   null: false
+    t.string   "type",               default: "Post::Base", null: false
     t.text     "description"
     t.string   "url"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "slug"
-    t.integer  "clicks_count", default: 0,            null: false
+    t.integer  "clicks_count",       default: 0,            null: false
+    t.integer  "cached_votes_total", default: 0
+    t.integer  "cached_votes_score", default: 0
+    t.integer  "cached_votes_up",    default: 0
+    t.integer  "cached_votes_down",  default: 0
   end
 
+  add_index "posts", ["cached_votes_down"], name: "index_posts_on_cached_votes_down"
+  add_index "posts", ["cached_votes_score"], name: "index_posts_on_cached_votes_score"
+  add_index "posts", ["cached_votes_total"], name: "index_posts_on_cached_votes_total"
+  add_index "posts", ["cached_votes_up"], name: "index_posts_on_cached_votes_up"
   add_index "posts", ["clicks_count"], name: "index_posts_on_clicks_count"
   add_index "posts", ["user_id"], name: "index_posts_on_user_id"
 
