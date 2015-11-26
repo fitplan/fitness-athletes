@@ -21,6 +21,8 @@ Rails.application.routes.draw do
     resources :comments, path: 'discussion', only: [:index, :create]
   end
 
+  get '/top'   => 'posts#top'
+
   resource :user, as: :account, path: :account, only: [:edit, :update]
 
   resources :users, only: [] do
