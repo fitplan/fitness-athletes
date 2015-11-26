@@ -6,9 +6,11 @@
         h1= t :'community.name'
         h2= t :'community.tagline'
     ul
+      li= link_to 'About', about_path
+      li= link_to 'Submit New Athlete', new_post_path, data: { secondary: true }
+      li= link_to 'All Athletes', root_path
+      li= link_to 'Top Athletes', top_path
       - if user_signed_in?
         li= link_to 'Log Out', logout_path, method: :delete
       - else
         li= link_to 'Log In', login_path
-      li= link_to 'About', about_path
-      li= link_to 'New Submission', new_post_path, data: { secondary: true }

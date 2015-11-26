@@ -1,0 +1,8 @@
+- if @posts.any?
+  div
+    h4.header= "Top Athletes"
+    br
+  - @posts.each do |post|
+      ul= render partial: 'posts/post', object: post
+- else
+  h3.no-posts There doesn't seem to be anything here.
