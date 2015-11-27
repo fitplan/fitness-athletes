@@ -33,5 +33,5 @@
   "scripts": {
     "postdeploy": "bundle exec rake db:migrate"
   },
-  "success_url": "/posts/new"
+  "success_url": "/athletes/new"
 }

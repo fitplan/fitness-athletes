@@ -2,23 +2,23 @@ require 'rails_helper'
 
 RSpec.describe CommentsController, type: :controller do
   describe '#index' do
-    context 'with an invalid post' do
-      it 'renders a 404 if unable to load the post' do
-        get :index, post_id: 'this-does-not-exist'
+    context 'with an invalid athlete' do
+      it 'renders a 404 if unable to load the athlete' do
+        get :index, athlete_id: 'this-does-not-exist'
         expect(response.status).to eq(404)
       end
     end
-    context 'with a valid post' do
-      let(:post) { create :post }
+    context 'with a valid athlete' do
+      let(:athlete) { create :athlete }
       before(:each) {
-        rand(100).times { create :comment, commentable: post }
-        get :index, post_id: post.slug
+        rand(100).times { create :comment, commentable: athlete }
+        get :index, athlete_id: athlete.slug
       }
-      it 'loads the post object associated with the id' do
-        expect(assigns :post).to eq(post)
+      it 'loads the athlete object associated with the id' do
+        expect(assigns :athlete).to eq(athlete)
       end
-      it 'loads a list of comments for the post' do
-        expect(assigns :comments).to eq(post.comment_threads)
+      it 'loads a list of comments for the athlete' do
+        expect(assigns :comments).to eq(athlete.comment_threads)
       end
     end
   end
@@ -27,13 +27,13 @@ RSpec.describe CommentsController, type: :controller do
       before(:each) { sign_in create(:user) }
       it 'creates a new comment object' do
         expect {
-          post :create, comment: FactoryGirl.attributes_for(:comment), post_id: create(:post).id
+          post :create, comment: FactoryGirl.attributes_for(:comment), athlete_id: create(:athlete).id
         }.to change(Comment,:count).by(1)
       end
     end
     context 'when logged out' do
       it 'prevents the user from commenting' do
-        post :create, comment: FactoryGirl.attributes_for(:comment), post_id: create(:post).id
+        post :create, comment: FactoryGirl.attributes_for(:comment), athlete_id: create(:athlete).id
         expect(response.status).to eq(302)
         expect(response).to redirect_to root_url
       end

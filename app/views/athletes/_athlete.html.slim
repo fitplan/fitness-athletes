@@ -1,0 +1,17 @@
+li.athlete
+  .submission
+    = link_to upvote_athlete_path(athlete), method: :athlete do
+      .upvote
+        span.upvote-link= icon(:'caret-up')
+        .vote-count= athlete.votes_for.size
+    div.avatar-url
+      img src=athlete.avatar_url
+    .url= link_to athlete.title, outbound_athlete_path(athlete), target: '_blank', class: 'athlete-url title'
+    .description= athlete.description
+    = render 'athletes/tags', athlete: athlete unless controller_name == 'comments'
+
+  .view-discussion
+    = link_to athlete_comments_path(athlete) do
+      = icon :comment
+      span.comment-count
+        = athlete.comment_threads.count

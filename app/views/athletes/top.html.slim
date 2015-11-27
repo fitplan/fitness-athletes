@@ -1,0 +1,8 @@
+- if @athletes.any?
+  div
+    h4.header= "Top Athletes"
+    br
+  - @athletes.each do |athlete|
+      ul= render partial: 'athletes/athlete', object: athlete
+- else
+  h3.no-athletes There doesn't seem to be anything here.

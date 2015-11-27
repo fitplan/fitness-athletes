@@ -1,0 +1,4 @@
+- if athlete.tags.any?
+  section.athlete-tags
+    - athlete.tags.each do |tag|
+      = link_to tag, tagged_athletes_path(tag:tag.to_s), class: 'tag'

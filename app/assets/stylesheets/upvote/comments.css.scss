@@ -1,9 +1,9 @@
 // .comment
 //   .comment-author
-//     = link_to submitted_user_posts_path(comment.user) do
+//     = link_to submitted_user_athletes_path(comment.user) do
 //       = image_tag 'https://pbs.twimg.com/profile_images/513320254840516608/EJv_7GVy_normal.jpeg', height: 40, width: 40
 //        h2.comment-user-name= comment.user.
-//       = link_to  comment.user.name, submitted_user_posts_path(comment.user)
+//       = link_to  comment.user.name, submitted_user_athletes_path(comment.user)
 //     .coment-user-info
 //       small.user-handled @shadowr
 //   .comment-body= comment.body

@@ -1,0 +1,22 @@
+= form_for @athlete, as: :athlete, url: @athlete.new_record? ? athletes_path : athlete_path(@athlete) do |f|
+  - if @athlete.errors.any?
+    #error_explanation
+      h4
+        => pluralize(@athlete.errors.count, "error")
+        | prohibited this athlete from being saved:
+
+      ul
+        - @athlete.errors.full_messages.each do |message|
+          li= message
+
+  = f.text_field :title, placeholder: 'Name Your Athlete'
+  /= f.text_field :url, placeholder: 'URL (http://)'
+  = f.text_field :instagram_url, placeholder: 'Instagram URL (http://)'
+  /= f.text_field :tag_list, placeholder: 'Add some tags...', id: 'tags'
+  = f.text_field :description, placeholder: 'Tell us about the athlete...'
+  br
+  = f.submit 'Post it!'
+
+coffee:
+  $ ->
+    $('#tags').tagsInput()

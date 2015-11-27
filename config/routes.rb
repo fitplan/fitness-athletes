@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   get '/login' => 'pages#login', as: :login
 
-  resources :posts, only: [:new, :create, :index] do
+  resources :athletes, only: [:new, :create, :index] do
     collection do
       get ':year/:month/:day' => :index, as: :date
       get 'tagged/:tag'       => :index, as: :tagged
@@ -21,7 +21,7 @@ Rails.application.routes.draw do
     resources :comments, path: 'discussion', only: [:index, :create]
   end
 
-  get '/top'   => 'posts#top'
+  get '/top'   => 'athletes#top'
 
   resource :user, as: :account, path: :account, only: [:edit, :update]
 
@@ -29,10 +29,10 @@ Rails.application.routes.draw do
     member do
       match :finish_signup, via: [:get, :patch]
     end
-    resources :posts, only: [] do
+    resources :athletes, only: [] do
       collection do
-        get '/submitted' => 'posts#submitted_by_user'
-        get '/liked' => 'posts#liked_by_user'
+        get '/submitted' => 'athletes#submitted_by_user'
+        get '/liked' => 'athletes#liked_by_user'
       end
     end
   end
@@ -41,5 +41,5 @@ Rails.application.routes.draw do
   get '/privacy-policy'   => 'pages#privacy_policy'
   get '/about'            => 'pages#about'
 
-  root to: 'posts#index'
+  root to: 'athletes#index'
 end

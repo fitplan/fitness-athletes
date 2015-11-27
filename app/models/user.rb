@@ -4,8 +4,8 @@ class User < ActiveRecord::Base
   devise :trackable, :omniauthable, omniauth_providers: CONFIGURED_OMNIAUTH_PROVIDERS
 
   has_many :authorizations, dependent: :destroy
-  has_many :clicks, class_name: 'PostClick', dependent: :destroy
-  has_many :posts, class_name: 'Post::Base', dependent: :destroy
+  has_many :clicks, class_name: 'AthleteClick', dependent: :destroy
+  has_many :athletes, class_name: 'Athlete::Base', dependent: :destroy
 
   TEMP_EMAIL_PREFIX = 'change@me'
   TEMP_EMAIL_REGEX  = /\A#{TEMP_EMAIL_PREFIX}/

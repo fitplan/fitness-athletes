@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :comment do
     user
-    commentable { create :post }
+    commentable { create :athlete }
     body { Faker::Lorem.sentence }
   end
 end

@@ -1,18 +1,18 @@
 section.author
   | Posted by
-  strong=<> @post.user.name
+  strong=<> @athlete.user.name
   | about
-  span.post-age=< "#{distance_of_time_in_words_to_now @post.created_at} ago"
+  span.athlete-age=< "#{distance_of_time_in_words_to_now @athlete.created_at} ago"
 
-section.post-details
-  ul= render 'posts/post', post: @post
+section.athlete-details
+  ul= render 'athletes/athlete', athlete: @athlete
 
-= render 'posts/tags', post: @post
+= render 'athletes/tags', athlete: @athlete
 
 section.upvotes
-  h5= pluralize @post.votes_for.size, 'upvote'
-  - if @post.votes_for.size == 0
-    p.no-votes No love for this post (yet).
+  h5= pluralize @athlete.votes_for.size, 'upvote'
+  - if @athlete.votes_for.size == 0
+    p.no-votes No love for this athlete (yet).
 
 
 section.comments

@@ -13,6 +13,41 @@
 
 ActiveRecord::Schema.define(version: 20151125220944) do
 
+  create_table "athlete_clicks", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "athlete_id", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "athlete_clicks", ["athlete_id"], name: "index_athlete_clicks_on_athlete_id"
+  add_index "athlete_clicks", ["user_id"], name: "index_athlete_clicks_on_user_id"
+
+  create_table "athletes", force: :cascade do |t|
+    t.string   "title",                                        null: false
+    t.integer  "user_id",                                      null: false
+    t.string   "type",               default: "Athlete::Base", null: false
+    t.text     "description"
+    t.string   "url"
+    t.string   "instagram_url"
+    t.string   "avatar_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "slug"
+    t.integer  "clicks_count",       default: 0,               null: false
+    t.integer  "cached_votes_total", default: 0
+    t.integer  "cached_votes_score", default: 0
+    t.integer  "cached_votes_up",    default: 0
+    t.integer  "cached_votes_down",  default: 0
+  end
+
+  add_index "athletes", ["cached_votes_down"], name: "index_athletes_on_cached_votes_down"
+  add_index "athletes", ["cached_votes_score"], name: "index_athletes_on_cached_votes_score"
+  add_index "athletes", ["cached_votes_total"], name: "index_athletes_on_cached_votes_total"
+  add_index "athletes", ["cached_votes_up"], name: "index_athletes_on_cached_votes_up"
+  add_index "athletes", ["clicks_count"], name: "index_athletes_on_clicks_count"
+  add_index "athletes", ["user_id"], name: "index_athletes_on_user_id"
+
   create_table "authorizations", force: :cascade do |t|
     t.integer  "user_id",    null: false
     t.string   "provider",   null: false
@@ -42,39 +77,6 @@ ActiveRecord::Schema.define(version: 20151125220944) do
 
   add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type"
   add_index "comments", ["user_id"], name: "index_comments_on_user_id"
-
-  create_table "post_clicks", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "post_id",    null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "post_clicks", ["post_id"], name: "index_post_clicks_on_post_id"
-  add_index "post_clicks", ["user_id"], name: "index_post_clicks_on_user_id"
-
-  create_table "posts", force: :cascade do |t|
-    t.string   "title",                                     null: false
-    t.integer  "user_id",                                   null: false
-    t.string   "type",               default: "Post::Base", null: false
-    t.text     "description"
-    t.string   "url"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "slug"
-    t.integer  "clicks_count",       default: 0,            null: false
-    t.integer  "cached_votes_total", default: 0
-    t.integer  "cached_votes_score", default: 0
-    t.integer  "cached_votes_up",    default: 0
-    t.integer  "cached_votes_down",  default: 0
-  end
-
-  add_index "posts", ["cached_votes_down"], name: "index_posts_on_cached_votes_down"
-  add_index "posts", ["cached_votes_score"], name: "index_posts_on_cached_votes_score"
-  add_index "posts", ["cached_votes_total"], name: "index_posts_on_cached_votes_total"
-  add_index "posts", ["cached_votes_up"], name: "index_posts_on_cached_votes_up"
-  add_index "posts", ["clicks_count"], name: "index_posts_on_clicks_count"
-  add_index "posts", ["user_id"], name: "index_posts_on_user_id"
 
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
