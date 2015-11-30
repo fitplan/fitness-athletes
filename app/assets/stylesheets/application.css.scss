@@ -28,6 +28,16 @@
   padding-top: 4.5em;
 }
 
+.primary-banner {
+  background-image: image-url("which-athlete-would-you-like-to-see.jpg");
+  height: 10em;
+  margin-bottom: 20px;
+  h1 {
+    text-align: center;
+    padding-top: 55px;
+  }
+}
+
 .login-provider {
   display: inline-block;
   padding: 4px 12px;

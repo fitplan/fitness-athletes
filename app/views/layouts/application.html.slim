@@ -11,6 +11,8 @@ html
     article.secondary-content
       .loading Loading...
     article.primary-content
+      div.primary-banner
+        h1="Who's your favorite athlete?"
       = render 'shared/flash_notifications'
       section= yield
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
