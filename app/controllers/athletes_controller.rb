@@ -53,8 +53,8 @@ class AthletesController < ApplicationController
 
     instagram_name = URI(athlete_params["instagram_url"]).path.split('/').last
     avatar_url = "https://res.cloudinary.com/demo/image/instagram_name/w_75,h_75,c_fill/"+instagram_name+".jpg"
-    # binding.pry
     @athlete.avatar_url = avatar_url
+    @athlete.url = avatar_url
 
     respond_to do |format|
       if @athlete.save
